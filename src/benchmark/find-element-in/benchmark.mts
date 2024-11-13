@@ -1,74 +1,5 @@
 import { Bench } from "tinybench";
-import { faker } from "@faker-js/faker";
-
-faker.seed(1);
-
-const factory = () => {
-  return {
-    id: faker.string.uuid(),
-    name: {
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName(),
-    },
-    email: faker.internet.email(),
-    phone: faker.phone.number(),
-    username: faker.internet.username(),
-    password: faker.internet.password(),
-    birthDate: faker.date.past({
-      years: 40,
-    }),
-    address: {
-      streetAddress: faker.location.streetAddress(),
-      city: faker.location.city(),
-      state: faker.location.state(),
-      country: faker.location.country(),
-      zipCode: faker.location.zipCode(),
-      geoLocation: {
-        lat: faker.location.latitude(),
-        lng: faker.location.longitude(),
-      },
-    },
-    company: {
-      name: faker.company.name(),
-      department: faker.commerce.department(),
-      jobTitle: faker.person.jobTitle(),
-    },
-    website: faker.internet.url(),
-    avatar: faker.image.avatar(),
-    bio: faker.lorem.paragraph(),
-    socialMedia: {
-      twitter: faker.internet.username() + "@twitter.com",
-      linkedin: faker.internet.username() + "@linkedin.com",
-      facebook: faker.internet.username() + "@facebook.com",
-    },
-    employmentStatus: faker.datatype.boolean() ? "employed" : "unemployed",
-    preferences: {
-      newsletter: faker.datatype.boolean(),
-      notifications: {
-        email: faker.datatype.boolean(),
-        sms: faker.datatype.boolean(),
-        push: faker.datatype.boolean(),
-      },
-      theme: faker.helpers.arrayElement(["light", "dark"]),
-    },
-    accountCreationDate: faker.date.past({ years: 2 }),
-    lastLoginDate: faker.date.recent(),
-    membershipLevel: faker.helpers.arrayElement(["basic", "premium", "gold"]),
-    creditCard: {
-      cardNumber: faker.finance.creditCardNumber(),
-      expirationDate: faker.date.future(),
-      cvv: faker.finance.creditCardCVV(),
-    },
-    balance: faker.finance.amount({ min: 0, max: 50000, dec: 2 }),
-    transactionHistory: Array.from({ length: 3 }, () => ({
-      date: faker.date.recent(),
-      amount: faker.finance.amount(),
-      description: faker.commerce.productDescription(),
-    })),
-  };
-};
-
-type User = ReturnType<typeof factory>;
+import { User, userFactory } from "../../utils/userFactory.mjs";
 
 const array: User[] = [];
 const record: Record<string, User> = {};
@@ -77,7 +8,7 @@ const map: Map<string, User> = new Map();
 const COUNT = 100;
 
 for (let i = 0; i < COUNT; i++) {
-  const user = factory();
+  const user = userFactory();
   record[user.id] = user;
   array.push(user);
   map.set(user.id, user);
