@@ -7,6 +7,7 @@ import { getHardware } from "./getHardware.mjs";
 import { sortResults } from "./sortResults.mjs";
 import { getMarkdownTable } from "./getMarkdownTable.mjs";
 import prettier from "prettier";
+import { getEnvironment } from "./getEnvironment.mjs";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
@@ -29,6 +30,8 @@ export const benchmark = async (args: {
 
   const hardware = await getHardware();
 
+  const environment = getEnvironment();
+
   const markdown = json2md([
     { h1: changeCase.capitalCase(paths.fileName) },
     {
@@ -44,6 +47,15 @@ export const benchmark = async (args: {
         `[Motherboard] \`${hardware.motherboard}\``,
         `[RAM] \`${hardware.ram}\``,
         `[Disk] \`${hardware.disk}\``,
+      ],
+    },
+    { h2: "Environment" },
+    {
+      ul: [
+        `[Node] \`${environment.node}\``,
+        `[NPM] \`${environment.npm}\``,
+        `[tsx] \`${environment.tsx}\``,
+        `[OS] \`${environment.os}\``,
       ],
     },
     {
