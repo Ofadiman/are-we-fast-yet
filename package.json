@@ -5,9 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
+    "@types/json2md": "^1.5.4",
     "@types/node": "^22.9.0",
+    "change-case": "^5.4.4",
     "filesize": "^10.1.6",
+    "json2md": "^2.0.1",
     "prettier": "^3.3.3",
+    "simple-git": "3.25",
     "systeminformation": "^5.23.5",
     "tinybench": "^3.0.3",
     "tsx": "^4.19.2",
