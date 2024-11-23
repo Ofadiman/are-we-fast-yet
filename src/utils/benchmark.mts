@@ -8,6 +8,7 @@ import { sortResults } from "./sortResults.mjs";
 import { getMarkdownTable } from "./getMarkdownTable.mjs";
 import prettier from "prettier";
 import { getEnvironment } from "./getEnvironment.mjs";
+import yargs from "yargs";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
@@ -16,62 +17,81 @@ export const benchmark = async (args: {
   conclusion: string[];
   importMetaUrl: string;
 }) => {
-  const bench = new Bench(args.options ?? {});
+  const argv = yargs(process.argv.slice(2))
+    .options({
+      docs: { type: "boolean", default: false },
+    })
+    .parseSync();
 
-  args.setup(bench);
+  if (argv.docs) {
+    const paths = await getSystemPaths({ importMetaUrl: args.importMetaUrl });
 
-  await bench.run();
+    const table = JSON.parse(
+      fs.readFileSync(`./${paths.fileName}.results.json`, "utf8"),
+    );
 
-  const table = bench.table();
+    const hardware = await getHardware();
 
-  sortResults(table);
+    const environment = getEnvironment();
 
-  const paths = await getSystemPaths({ importMetaUrl: args.importMetaUrl });
+    const markdown = json2md([
+      { h1: changeCase.capitalCase(paths.fileName) },
+      {
+        p: args.description,
+      },
+      {
+        h2: "Hardware",
+      },
+      {
+        ul: [
+          `[CPU] \`${hardware.cpu}\``,
+          `[GPU] \`${hardware.gpu}\``,
+          `[Motherboard] \`${hardware.motherboard}\``,
+          `[RAM] \`${hardware.ram}\``,
+          `[Disk] \`${hardware.disk}\``,
+        ],
+      },
+      { h2: "Environment" },
+      {
+        ul: [
+          `[Node] \`${environment.node}\``,
+          `[NPM] \`${environment.npm}\``,
+          `[tsx] \`${environment.tsx}\``,
+          `[OS] \`${environment.os}\``,
+        ],
+      },
+      {
+        h2: "Results",
+      },
+      {
+        table: getMarkdownTable(table),
+      },
+      {
+        h2: "Conclusion",
+      },
+      {
+        ul: args.conclusion,
+      },
+    ]);
 
-  const hardware = await getHardware();
+    const formatted = await prettier.format(markdown, { parser: "markdown" });
+    fs.writeFileSync(`./${paths.fileName}.md`, formatted, "utf8");
+  } else {
+    const bench = new Bench(args.options ?? {});
 
-  const environment = getEnvironment();
+    args.setup(bench);
 
-  const markdown = json2md([
-    { h1: changeCase.capitalCase(paths.fileName) },
-    {
-      p: args.description,
-    },
-    {
-      h2: "Hardware",
-    },
-    {
-      ul: [
-        `[CPU] \`${hardware.cpu}\``,
-        `[GPU] \`${hardware.gpu}\``,
-        `[Motherboard] \`${hardware.motherboard}\``,
-        `[RAM] \`${hardware.ram}\``,
-        `[Disk] \`${hardware.disk}\``,
-      ],
-    },
-    { h2: "Environment" },
-    {
-      ul: [
-        `[Node] \`${environment.node}\``,
-        `[NPM] \`${environment.npm}\``,
-        `[tsx] \`${environment.tsx}\``,
-        `[OS] \`${environment.os}\``,
-      ],
-    },
-    {
-      h2: "Results",
-    },
-    {
-      table: getMarkdownTable(table),
-    },
-    {
-      h2: "Conclusion",
-    },
-    {
-      ul: args.conclusion,
-    },
-  ]);
+    await bench.run();
 
-  const formatted = await prettier.format(markdown, { parser: "markdown" });
-  fs.writeFileSync(`./${paths.fileName}.md`, formatted, "utf8");
+    const table = bench.table();
+    sortResults(table);
+
+    const paths = await getSystemPaths({ importMetaUrl: args.importMetaUrl });
+
+    fs.writeFileSync(
+      `./${paths.fileName}.results.json`,
+      JSON.stringify(table),
+      "utf8",
+    );
+  }
 };
