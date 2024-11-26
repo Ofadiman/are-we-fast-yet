@@ -4,7 +4,9 @@
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "alwaysStrict": true,
+    "emitDecoratorMetadata": true,
     "exactOptionalPropertyTypes": true,
+    "experimentalDecorators": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
@@ -23,7 +25,7 @@
     "strictBuiltinIteratorReturn": true,
     "strictFunctionTypes": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true,
+    "strictPropertyInitialization": false,
     "target": "ESNext",
     "useUnknownInCatchVariables": true
   }

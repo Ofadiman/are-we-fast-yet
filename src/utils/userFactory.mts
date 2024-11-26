@@ -7,23 +7,25 @@ export const userFactory = () => {
   return {
     id: faker.string.uuid(),
     name: {
-      firstName: faker.person.firstName(),
-      lastName: faker.person.lastName(),
+      first: faker.person.firstName(),
+      last: faker.person.lastName(),
     },
     email: faker.internet.email(),
     phone: faker.phone.number(),
     username: faker.internet.username(),
     password: faker.internet.password(),
-    birthDate: faker.date.past({
-      years: 40,
-    }),
+    birthday: faker.date
+      .past({
+        years: 40,
+      })
+      .toISOString(),
     address: {
-      streetAddress: faker.location.streetAddress(),
+      street: faker.location.streetAddress(),
       city: faker.location.city(),
       state: faker.location.state(),
       country: faker.location.country(),
       zipCode: faker.location.zipCode(),
-      geoLocation: {
+      location: {
         lat: faker.location.latitude(),
         lng: faker.location.longitude(),
       },
@@ -41,7 +43,7 @@ export const userFactory = () => {
       linkedin: faker.internet.username() + "@linkedin.com",
       facebook: faker.internet.username() + "@facebook.com",
     },
-    employmentStatus: faker.datatype.boolean() ? "employed" : "unemployed",
+    employmentStatus: faker.helpers.arrayElement(["employed", "unemployed"]),
     preferences: {
       newsletter: faker.datatype.boolean(),
       notifications: {
@@ -51,17 +53,17 @@ export const userFactory = () => {
       },
       theme: faker.helpers.arrayElement(["light", "dark"]),
     },
-    accountCreationDate: faker.date.past({ years: 2 }),
-    lastLoginDate: faker.date.recent(),
+    createdAt: faker.date.past({ years: 2 }).toISOString(),
+    lastLoginAt: faker.date.recent().toISOString(),
     membershipLevel: faker.helpers.arrayElement(["basic", "premium", "gold"]),
     creditCard: {
-      cardNumber: faker.finance.creditCardNumber(),
-      expirationDate: faker.date.future(),
+      number: faker.finance.creditCardNumber(),
+      expiresAt: faker.date.future().toISOString(),
       cvv: faker.finance.creditCardCVV(),
     },
     balance: faker.finance.amount({ min: 0, max: 50000, dec: 2 }),
     transactionHistory: Array.from({ length: 3 }, () => ({
-      date: faker.date.recent(),
+      date: faker.date.recent().toISOString(),
       amount: faker.finance.amount(),
       description: faker.commerce.productDescription(),
     })),
