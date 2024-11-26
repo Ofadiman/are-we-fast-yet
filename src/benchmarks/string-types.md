@@ -21,9 +21,9 @@ This benchmark was designed to test which type of string is the fastest in JavaS
 
 | Task name    | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
 | ------------ | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
-| backticks    | 26351477 ± 0.01%           | 25000001                  | 38.78 ± 0.03%        | 40.00               | 25786259 |
-| double quote | 25891548 ± 0.00%           | 25000001                  | 39.31 ± 0.03%        | 40.00               | 25437357 |
-| single quote | 25833052 ± 0.00%           | 25000000                  | 39.32 ± 0.03%        | 40.00               | 25433753 |
+| double quote | 26705624 ± 0.01%           | 25000001                  | 38.50 ± 0.04%        | 40.00               | 25975467 |
+| backticks    | 26262184 ± 0.01%           | 25000001                  | 39.00 ± 0.04%        | 40.00               | 25641905 |
+| single quote | 25196977 ± 0.01%           | 25000000                  | 41.31 ± 0.05%        | 40.00               | 24206527 |
 
 ## Conclusion
 

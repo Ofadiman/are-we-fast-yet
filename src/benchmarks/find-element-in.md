@@ -21,14 +21,14 @@ The purpose of the benchmark is to test how data access speed changes based on d
 
 | Task name                             | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
 | ------------------------------------- | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
-| find first element using array.find() | 25177828 ± 0.00%           | 25000000                  | 40.27 ± 0.04%        | 40.00               | 24831807 |
-| find last element using Map           | 23593796 ± 0.00%           | 25000001                  | 43.12 ± 0.03%        | 40.00               | 23189292 |
-| find first element using Map          | 23417487 ± 0.00%           | 25000001                  | 43.52 ± 0.03%        | 40.00               | 22979353 |
-| find first element using record       | 22689650 ± 0.00%           | 24999998                  | 44.94 ± 0.03%        | 40.00               | 22252409 |
-| find last element using record        | 21876149 ± 0.01%           | 20000002                  | 46.70 ± 0.03%        | 50.00               | 21415266 |
-| find last element using array.find()  | 3811733 ± 0.00%            | 3831418                   | 264.05 ± 0.04%       | 261.00              | 3787129  |
-| find first element using for loop     | 3140893 ± 0.01%            | 3125000                   | 321.07 ± 0.03%       | 320.00              | 3114544  |
-| find last element using for loop      | 3097677 ± 0.01%            | 3115265                   | 326.43 ± 0.03%       | 321.00              | 3063456  |
+| find first element using array.find() | 25365292 ± 0.01%           | 25000000                  | 40.89 ± 0.05%        | 40.00               | 24457973 |
+| find first element using Map          | 23625254 ± 0.00%           | 25000001                  | 43.56 ± 0.05%        | 40.00               | 22956262 |
+| find last element using Map           | 23414631 ± 0.00%           | 25000001                  | 43.90 ± 0.05%        | 40.00               | 22778831 |
+| find first element using record       | 21137186 ± 0.01%           | 20000001                  | 48.75 ± 0.06%        | 50.00               | 20511770 |
+| find last element using record        | 20171843 ± 0.00%           | 19999999                  | 50.74 ± 0.06%        | 50.00               | 19709400 |
+| find last element using array.find()  | 3762938 ± 0.01%            | 3831418                   | 273.15 ± 0.10%       | 261.00              | 3661023  |
+| find first element using for loop     | 3069953 ± 0.01%            | 3115265                   | 332.29 ± 0.05%       | 321.00              | 3009384  |
+| find last element using for loop      | 3067834 ± 0.01%            | 3115265                   | 331.86 ± 0.06%       | 321.00              | 3013302  |
 
 ## Conclusion
 

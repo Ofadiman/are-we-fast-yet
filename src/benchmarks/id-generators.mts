@@ -42,7 +42,7 @@ benchmark({
         createIdClass.next();
       });
   },
-  importMetaUrl: import.meta.url,
+  filename: import.meta.filename,
   description:
     "The goal of this benchmark is to check the performance of different methods for generating IDs in JavaScript.",
   conclusion: [

@@ -1,7 +1,6 @@
 import json2md from "json2md";
 import fs from "node:fs";
 import { Bench } from "tinybench";
-import { getSystemPaths } from "./getSystemPaths.mjs";
 import * as changeCase from "change-case";
 import { getHardware } from "./getHardware.mjs";
 import { sortResults } from "./sortResults.mjs";
@@ -9,13 +8,14 @@ import { getMarkdownTable } from "./getMarkdownTable.mjs";
 import prettier from "prettier";
 import { getEnvironment } from "./getEnvironment.mjs";
 import yargs from "yargs";
+import path from "node:path";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
   options?: ConstructorParameters<typeof Bench>[0];
   description: string;
   conclusion: string[];
-  importMetaUrl: string;
+  filename: string;
 }) => {
   const argv = yargs(process.argv.slice(2))
     .options({
@@ -23,19 +23,24 @@ export const benchmark = async (args: {
     })
     .parseSync();
 
-  if (argv.docs) {
-    const paths = await getSystemPaths({ importMetaUrl: args.importMetaUrl });
+  const fileNameWithoutExtension = path.basename(args.filename, ".mts");
+  const resultsJsonPath = path.join(
+    path.dirname(args.filename),
+    `${fileNameWithoutExtension}.results.json`,
+  );
+  const docsMarkdownPath = path.join(
+    path.dirname(args.filename),
+    `${fileNameWithoutExtension}.md`,
+  );
 
-    const table = JSON.parse(
-      fs.readFileSync(`./${paths.fileName}.results.json`, "utf8"),
-    );
+  if (argv.docs) {
+    const table = JSON.parse(fs.readFileSync(resultsJsonPath, "utf8"));
 
     const hardware = await getHardware();
-
     const environment = getEnvironment();
 
     const markdown = json2md([
-      { h1: changeCase.capitalCase(paths.fileName) },
+      { h1: changeCase.capitalCase(fileNameWithoutExtension) },
       {
         p: args.description,
       },
@@ -75,7 +80,8 @@ export const benchmark = async (args: {
     ]);
 
     const formatted = await prettier.format(markdown, { parser: "markdown" });
-    fs.writeFileSync(`./${paths.fileName}.md`, formatted, "utf8");
+
+    fs.writeFileSync(docsMarkdownPath, formatted, "utf8");
   } else {
     const bench = new Bench(args.options ?? {});
 
@@ -86,12 +92,6 @@ export const benchmark = async (args: {
     const table = bench.table();
     sortResults(table);
 
-    const paths = await getSystemPaths({ importMetaUrl: args.importMetaUrl });
-
-    fs.writeFileSync(
-      `./${paths.fileName}.results.json`,
-      JSON.stringify(table),
-      "utf8",
-    );
+    fs.writeFileSync(resultsJsonPath, JSON.stringify(table), "utf8");
   }
 };

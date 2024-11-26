@@ -61,7 +61,7 @@ benchmark({
         const element = map.get(lastElementId);
       });
   },
-  importMetaUrl: import.meta.url,
+  filename: import.meta.filename,
   description:
     "The purpose of the benchmark is to test how data access speed changes based on data structure used to store the data. I used `array`, `record (object literal)` and `Map` data structures in the benchmark.",
   conclusion: [

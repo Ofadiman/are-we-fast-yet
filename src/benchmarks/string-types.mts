@@ -21,5 +21,5 @@ benchmark({
   conclusion: [
     "It seems that there are no significant differences between different string types in terms of performance.",
   ],
-  importMetaUrl: import.meta.url,
+  filename: import.meta.filename,
 });
