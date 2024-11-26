@@ -6,7 +6,7 @@
     "alwaysStrict": true,
     "exactOptionalPropertyTypes": true,
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noImplicitOverride": true,
