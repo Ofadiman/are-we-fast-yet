@@ -10,22 +10,39 @@ const listItems = (await glob("src/**/*.md")).map((file) => {
 
   const root = unified().use(parse).parse(content);
 
-  const element = root.children[1];
-  if (!element || element.type !== "paragraph") {
+  const h1 = root.children[0];
+  if (!h1 || h1.type !== "heading") {
+    throw new Error(
+      `h1 must be the first element of the benchmark documentation`,
+      {
+        cause: h1,
+      },
+    );
+  }
+
+  const paragraph = root.children[1];
+  if (!paragraph || paragraph.type !== "paragraph") {
     throw new Error(
       `paragraph must be the second element of the benchmark documentation`,
       {
-        cause: element,
+        cause: paragraph,
       },
     );
   }
 
   return {
     file,
-    description: element.children
+    h1: h1.children.map((child) => {
+      if (!("value" in child)) {
+        throw new Error(`unexpected h1 format`, { cause: h1 });
+      }
+
+      return child.value;
+    }),
+    description: paragraph.children
       .map((child) => {
         if (!("value" in child)) {
-          throw new Error(`unexpected paragraph format`, { cause: element });
+          throw new Error(`unexpected paragraph format`, { cause: paragraph });
         }
 
         return child.value;
@@ -40,7 +57,7 @@ const markdown = json2md([
   },
   {
     ul: listItems.map((item) => {
-      return `[${item.description}](${item.file})`;
+      return `[${item.h1}](${item.file}) - ${item.description}`;
     }),
   },
 ]);
