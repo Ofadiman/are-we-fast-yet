@@ -23,20 +23,20 @@ export const createDocs = (args: {
     },
     {
       ul: [
-        `[CPU] \`${args.hardware.cpu}\``,
-        `[GPU] \`${args.hardware.gpu}\``,
-        `[Motherboard] \`${args.hardware.motherboard}\``,
-        `[RAM] \`${args.hardware.ram}\``,
-        `[Disk] \`${args.hardware.disk}\``,
+        `\`${args.hardware.cpu}\``,
+        `\`${args.hardware.gpu}\``,
+        `\`${args.hardware.motherboard}\``,
+        `\`${args.hardware.disk}\``,
+        `\`${args.hardware.ram}\``,
       ],
     },
     { h2: "Environment" },
     {
       ul: [
-        `[Node] \`${args.environment.node}\``,
-        `[NPM] \`${args.environment.npm}\``,
-        `[tsx] \`${args.environment.tsx}\``,
-        `[OS] \`${args.environment.os}\``,
+        `\`${args.environment.node}\``,
+        `\`${args.environment.npm}\``,
+        `\`${args.environment.tsx}\``,
+        `\`${args.environment.os}\``,
       ],
     },
     {
