@@ -4,18 +4,18 @@ This benchmark was designed to test which type of string is the fastest in JavaS
 
 ## Hardware
 
-- [CPU] `Ryzen 9 5950X 16-Core Processor`
-- [GPU] `NVIDIA GeForce RTX 3070 Ti`
-- [Motherboard] `B550 AORUS ELITE V2`
-- [RAM] `62.73 GiB`
-- [Disk] `ADATA SX8200PNP, 953.87 GiB`
+- `Ryzen 9 5950X 16-Core Processor`
+- `NVIDIA GeForce RTX 3070 Ti`
+- `B550 AORUS ELITE V2 Motherboard`
+- `ADATA SX8200PNP SSD Drive, 1.02 TB`
+- `62.73 GiB RAM`
 
 ## Environment
 
-- [Node] `v22.11.0`
-- [NPM] `10.9.0`
-- [tsx] `v4.19.2`
-- [OS] `Ubuntu 24.04.1 LTS`
+- `node@22.11.0`
+- `npm@10.9.0`
+- `tsx@4.19.2`
+- `ubuntu@24.04`
 
 ## Results
 
