@@ -1,7 +1,9 @@
-export const sortResults = (
-  table: (Record<string, string | number> | null | undefined)[],
-) => {
-  table.sort((firstResult, secondResult) => {
+export const sortResults = (args: {
+  results: (Record<string, string | number> | null | undefined)[];
+}) => {
+  const clone = structuredClone(args.results);
+
+  clone.sort((firstResult, secondResult) => {
     if (!firstResult || !secondResult) {
       throw new Error("left and right must be defined");
     }
@@ -19,4 +21,6 @@ export const sortResults = (
 
     return secondThroughput - firstThroughput;
   });
+
+  return clone;
 };

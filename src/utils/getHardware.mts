@@ -10,7 +10,7 @@ export const getHardware = async () => {
 
   return {
     cpu: cpu.brand,
-    gpu: graphics.controllers[0]!.name,
+    gpu: graphics.controllers[0]!.name!,
     motherboard: baseboard.model,
     ram: filesize(memLayout[0]!.size, { base: 2 }),
     disk: `${diskLayout[0]!.name}, ${filesize(diskLayout[0]!.size, { base: 2 })}`,
