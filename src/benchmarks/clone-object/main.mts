@@ -2,8 +2,8 @@ import fastJson from "fast-json-stringify";
 import lodash from "lodash";
 import parse from "secure-json-parse";
 import * as ramda from "ramda";
-import { benchmark } from "../utils/benchmark.mjs";
-import { userFactory } from "../utils/userFactory.mjs";
+import { benchmark } from "../../utils/benchmark.mjs";
+import { userFactory } from "../../utils/userFactory.mjs";
 
 const user = userFactory();
 

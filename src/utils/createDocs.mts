@@ -6,7 +6,7 @@ import { getMarkdownTable } from "./getMarkdownTable.mjs";
 import { readResults } from "./readResults.mjs";
 
 export const createDocs = (args: {
-  filename: string;
+  dirname: string;
   description: string;
   hardware: Awaited<ReturnType<typeof getHardware>>;
   environment: ReturnType<typeof getEnvironment>;
@@ -14,7 +14,7 @@ export const createDocs = (args: {
   conclusion: string[];
 }) => {
   return json2md([
-    { h1: capitalCase(args.filename) },
+    { h1: capitalCase(args.dirname) },
     {
       p: args.description,
     },

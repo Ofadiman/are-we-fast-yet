@@ -1,5 +1,8 @@
+import lodash from "lodash";
+import path from "node:path";
 import { Bench } from "tinybench";
 import { createDocs } from "./createDocs.mjs";
+import { createRootDocs } from "./createRootDocs.mjs";
 import { formatDocs } from "./formatDocs.mjs";
 import { getEnvironment } from "./getEnvironment.mjs";
 import { getHardware } from "./getHardware.mjs";
@@ -9,7 +12,6 @@ import { readResults } from "./readResults.mjs";
 import { saveDocs } from "./saveDocs.mjs";
 import { saveResults } from "./saveResults.mjs";
 import { sortResults } from "./sortResults.mjs";
-import { createRootDocs } from "./createRootDocs.mjs";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
@@ -30,7 +32,7 @@ export const benchmark = async (args: {
       conclusion: args.conclusion,
       description: args.description,
       environment,
-      filename: paths.filename,
+      dirname: lodash.last(path.dirname(args.filename).split("/")) as string,
       hardware,
       results,
     });

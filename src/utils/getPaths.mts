@@ -1,17 +1,10 @@
 import path from "path";
 
 export const getPaths = (args: { filename: string }) => {
-  const filename = path.basename(args.filename, ".mts");
-
-  const json = path.join(
-    path.dirname(args.filename),
-    `${filename}.results.json`,
-  );
-
-  const docs = path.join(path.dirname(args.filename), `${filename}.md`);
+  const json = path.join(path.dirname(args.filename), `results.json`);
+  const docs = path.join(path.dirname(args.filename), `readme.md`);
 
   return {
-    filename,
     json,
     docs,
   };
