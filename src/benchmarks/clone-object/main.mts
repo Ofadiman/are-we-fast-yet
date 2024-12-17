@@ -273,7 +273,7 @@ benchmark({
   description:
     "The purpose of this benchmark is to investigate which method of copying objects in Node.js is the fastest.",
   conclusion: [
-    "ChatGPT has created the fastest deep clone function. It is over 50% faster than the version proposed by Claude.",
-    "The fastest, widely-used method of cloning an object is `cloneDeep` function from `lodash` library. It is almost 5 times slower than the version proposed by ChatGPT.",
+    "ChatGPT has created the fastest deep clone function. It is over 40% faster than the version proposed by Claude.",
+    "The fastest, widely-used method of cloning an object is `cloneDeep` function from `lodash` library. It is over 3.5 times slower than the version proposed by ChatGPT.",
   ],
 });
