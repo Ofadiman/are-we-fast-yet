@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import path from "node:path";
-import { Bench } from "tinybench";
+import { Bench, Options, hrtimeNow } from "tinybench";
 import { createDocs } from "./createDocs.mjs";
 import { createRootDocs } from "./createRootDocs.mjs";
 import { formatDocs } from "./formatDocs.mjs";
@@ -15,7 +15,7 @@ import { sortResults } from "./sortResults.mjs";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
-  options?: ConstructorParameters<typeof Bench>[0];
+  options?: Options;
   description: string;
   conclusion: string[];
   filename: string;
@@ -43,7 +43,9 @@ export const benchmark = async (args: {
 
     createRootDocs();
   } else {
-    const bench = new Bench(args.options ?? {});
+    const bench = new Bench(
+      lodash.merge(args.options, { now: hrtimeNow } satisfies Options),
+    );
 
     args.setup(bench);
 
