@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { v4, v7 } from "uuid";
-import { benchmark } from "../utils/benchmark.mjs";
+import { benchmark } from "../../utils/benchmark.mjs";
 
 function* CreateIdGenerator() {
   let current = 0;

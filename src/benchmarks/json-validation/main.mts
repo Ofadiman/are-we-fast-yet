@@ -13,8 +13,8 @@ import {
 import * as s from "superstruct";
 import * as y from "yup";
 import { z } from "zod";
-import { benchmark } from "../utils/benchmark.mjs";
-import { userFactory } from "../utils/userFactory.mjs";
+import { benchmark } from "../../utils/benchmark.mjs";
+import { userFactory } from "../../utils/userFactory.mjs";
 import { Type as TypeboxType } from "@sinclair/typebox";
 import { Value } from "@sinclair/typebox/value";
 import {

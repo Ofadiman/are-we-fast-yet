@@ -1,4 +1,4 @@
-import { benchmark } from "../utils/benchmark.mjs";
+import { benchmark } from "../../utils/benchmark.mjs";
 
 benchmark({
   setup: (bench) => {

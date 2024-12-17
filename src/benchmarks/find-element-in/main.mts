@@ -1,5 +1,5 @@
-import { User, userFactory } from "../utils/userFactory.mjs";
-import { benchmark } from "../utils/benchmark.mjs";
+import { User, userFactory } from "../../utils/userFactory.mjs";
+import { benchmark } from "../../utils/benchmark.mjs";
 
 const array: User[] = [];
 const record: Record<string, User> = {};
