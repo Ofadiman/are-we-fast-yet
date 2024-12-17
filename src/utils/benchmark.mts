@@ -9,6 +9,7 @@ import { readResults } from "./readResults.mjs";
 import { saveDocs } from "./saveDocs.mjs";
 import { saveResults } from "./saveResults.mjs";
 import { sortResults } from "./sortResults.mjs";
+import { createRootDocs } from "./createRootDocs.mjs";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
@@ -37,6 +38,8 @@ export const benchmark = async (args: {
     const formattedDocs = await formatDocs({ docs });
 
     saveDocs({ path: paths.docs, docs: formattedDocs });
+
+    createRootDocs();
   } else {
     const bench = new Bench(args.options ?? {});
 
