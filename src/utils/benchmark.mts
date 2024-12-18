@@ -44,10 +44,13 @@ export const benchmark = async (args: {
     createRootDocs();
   } else {
     const bench = new Bench(
-      lodash.merge(args.options, {
-        now: hrtimeNow,
-        time: 10_000,
-      } satisfies Options),
+      lodash.merge(
+        {
+          now: hrtimeNow,
+          time: 10_000,
+        } satisfies Options,
+        args.options,
+      ),
     );
 
     args.setup(bench);
