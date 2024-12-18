@@ -61,6 +61,15 @@ export const createRootReadme = async () => {
       h1: "Are We Fast Yet?",
     },
     {
+      p: "No, we are not. A collection of experiments on slow code.",
+    },
+    {
+      p: "Are you curious if your code is fast enough? Do you wonder if one library is faster than another? Is native code better than a library implemented on top of the language? Now you can check for yourself.",
+    },
+    {
+      h2: "Available benchmarks",
+    },
+    {
       ul: listItems.map((item) => {
         return `[${item.h1}](${item.file}) - ${item.description}`;
       }),
