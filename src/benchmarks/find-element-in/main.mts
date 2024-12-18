@@ -1,72 +1,70 @@
 import { User, userFactory } from "../../utils/userFactory.mjs";
 import { benchmark } from "../../utils/benchmark.mjs";
+import immutable from "immutable";
 
-const array: User[] = [];
-const record: Record<string, User> = {};
-const map: Map<string, User> = new Map();
+const record = {} as Record<string, User>;
+const map = new Map<string, User>();
+let immutableMap = immutable.Map<string, User>();
+let immutableRecord = immutable.Record({} as { [Key: string]: User })();
+
+let firstElementId: string;
+let middleElementId: string;
+let lastElementId: string;
 
 const COUNT = 100;
-
 for (let i = 0; i < COUNT; i++) {
   const user = userFactory();
+
+  if (i === 0) {
+    firstElementId = user.id;
+  }
+
+  if (i === COUNT / 2 - 1) {
+    middleElementId = user.id;
+  }
+
+  if (i === COUNT - 1) {
+    lastElementId = user.id;
+  }
+
   record[user.id] = user;
-  array.push(user);
   map.set(user.id, user);
+  immutableMap = immutableMap.set(user.id, user);
+  immutableRecord = immutableRecord.set(user.id, user);
 }
 
-const firstElementId = array[0]!.id;
-const lastElementId = array[COUNT - 1]!.id;
-
 benchmark({
+  options: {
+    // This benchmark must be run for less than the default 10 seconds. This is because V8 throws weird memory allocation errors (e.g. FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory).
+    time: 2_000,
+  },
   setup: (bench) => {
     bench
-      .add(`find first element using array.find()`, () => {
-        const element = array.find((element) => element.id === firstElementId);
+      .add(`record`, () => {
+        record[firstElementId];
+        record[middleElementId];
+        record[lastElementId];
       })
-      .add(`find last element using array.find()`, () => {
-        const element = array.find((element) => element.id === lastElementId);
+      .add(`map`, () => {
+        map.get(firstElementId);
+        map.get(middleElementId);
+        map.get(lastElementId);
       })
-      .add(`find first element using for loop`, () => {
-        let element;
-        for (let i = 0; i < COUNT; i++) {
-          if (firstElementId === array[i]!.id) {
-            if (element) {
-              break;
-            }
-            element = array[i];
-          }
-        }
+      .add(`immutable record`, () => {
+        immutableRecord.get(firstElementId);
+        immutableRecord.get(middleElementId);
+        immutableRecord.get(lastElementId);
       })
-      .add(`find last element using for loop`, () => {
-        let element;
-        for (let i = 0; i < COUNT; i++) {
-          if (lastElementId === array[i]!.id) {
-            if (element) {
-              break;
-            }
-            element = array[i];
-          }
-        }
-      })
-      .add(`find first element using record`, () => {
-        const element = record[firstElementId];
-      })
-      .add(`find last element using record`, () => {
-        const element = record[lastElementId];
-      })
-      .add(`find first element using Map`, () => {
-        const element = map.get(firstElementId);
-      })
-      .add(`find last element using Map`, () => {
-        const element = map.get(lastElementId);
+      .add(`immutable map`, () => {
+        immutableMap.get(firstElementId);
+        immutableMap.get(middleElementId);
+        immutableMap.get(lastElementId);
       });
   },
   filename: import.meta.filename,
-  description:
-    "The purpose of the benchmark is to test how data access speed changes based on data structure used to store the data. I used `array`, `record (object literal)` and `Map` data structures in the benchmark.",
+  description: `The purpose of this benchmark is to investigate which "hash map" implementation is the fastest when it comes to accessing semi-random elements.`,
   conclusion: [
-    "`Map` is about 10% faster than `record (object literal)` in accessing a semi-random element.",
-    "The `array.find()` method is as fast as `map.get()` at best-case scenario.",
-    "The `for loop` is about 9-10 times slower than `array.find()`.",
+    "`Record` data structure from [immutable.js]() library is the fastest in accessing semi-random elements.",
+    "Native `Map` is about 10% faster than `record (object literal)` in accessing a semi-random elements.",
   ],
 });

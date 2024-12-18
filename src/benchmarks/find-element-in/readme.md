@@ -1,6 +1,6 @@
 # Find Element In
 
-The purpose of the benchmark is to test how data access speed changes based on data structure used to store the data. I used `array`, `record (object literal)` and `Map` data structures in the benchmark.
+The purpose of this benchmark is to investigate which "hash map" implementation is the fastest when it comes to accessing semi-random elements.
 
 ## Hardware
 
@@ -19,19 +19,14 @@ The purpose of the benchmark is to test how data access speed changes based on d
 
 ## Results
 
-| Task name                             | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
-| ------------------------------------- | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
-| find first element using array.find() | 25365292 ± 0.01%           | 25000000                  | 40.89 ± 0.05%        | 40.00               | 24457973 |
-| find first element using Map          | 23625254 ± 0.00%           | 25000001                  | 43.56 ± 0.05%        | 40.00               | 22956262 |
-| find last element using Map           | 23414631 ± 0.00%           | 25000001                  | 43.90 ± 0.05%        | 40.00               | 22778831 |
-| find first element using record       | 21137186 ± 0.01%           | 20000001                  | 48.75 ± 0.06%        | 50.00               | 20511770 |
-| find last element using record        | 20171843 ± 0.00%           | 19999999                  | 50.74 ± 0.06%        | 50.00               | 19709400 |
-| find last element using array.find()  | 3762938 ± 0.01%            | 3831418                   | 273.15 ± 0.10%       | 261.00              | 3661023  |
-| find first element using for loop     | 3069953 ± 0.01%            | 3115265                   | 332.29 ± 0.05%       | 321.00              | 3009384  |
-| find last element using for loop      | 3067834 ± 0.01%            | 3115265                   | 331.86 ± 0.06%       | 321.00              | 3013302  |
+| Task name        | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
+| ---------------- | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
+| immutable record | 17812978 ± 0.00%           | 16666798                  | 60.54 ± 0.32%        | 60.00               | 33037832 |
+| map              | 16935041 ± 0.00%           | 16666798                  | 62.72 ± 0.27%        | 60.00               | 31890243 |
+| record           | 15801135 ± 0.00%           | 16666798                  | 67.20 ± 0.28%        | 60.00               | 29760996 |
+| immutable map    | 8865441 ± 0.00%            | 9090878                   | 117.48 ± 0.22%       | 110.00              | 17024389 |
 
 ## Conclusion
 
-- `Map` is about 10% faster than `record (object literal)` in accessing a semi-random element.
-- The `array.find()` method is as fast as `map.get()` at best-case scenario.
-- The `for loop` is about 9-10 times slower than `array.find()`.
+- `Record` data structure from [immutable.js]() library is the fastest in accessing semi-random elements.
+- Native `Map` is about 10% faster than `record (object literal)` in accessing a semi-random elements.
