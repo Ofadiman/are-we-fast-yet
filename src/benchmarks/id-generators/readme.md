@@ -1,6 +1,6 @@
 # Id Generators
 
-The goal of this benchmark is to check the performance of different methods for generating IDs in JavaScript.
+The purpose of this benchmark is to investigate the performance of different methods for generating IDs.
 
 ## Hardware
 
@@ -21,15 +21,15 @@ The goal of this benchmark is to check the performance of different methods for 
 
 | Task name                        | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
 | -------------------------------- | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
-| integer-based class              | 25557364 ± 0.00%           | 25000001                  | 39.71 ± 0.03%        | 40.00               | 25180644 |
-| integer-based generator function | 20037755 ± 0.00%           | 20000001                  | 50.74 ± 0.04%        | 50.00               | 19710169 |
-| randomUUID                       | 14887590 ± 0.01%           | 14285714                  | 80.80 ± 0.12%        | 70.00               | 12376572 |
-| uuid v4                          | 6807856 ± 0.01%            | 7092199                   | 172.11 ± 0.58%       | 141.00              | 5810137  |
-| uuid v7                          | 5562253 ± 0.02%            | 5882353                   | 273.08 ± 0.69%       | 170.00              | 3661956  |
+| integer-based class              | 21604356 ± 0.00%           | 19999661                  | 50.36 ± 0.32%        | 50.00               | 39714712 |
+| integer-based generator function | 17676340 ± 0.00%           | 16666798                  | 57.79 ± 0.03%        | 60.00               | 34609109 |
+| randomUUID                       | 13488720 ± 0.00%           | 14285320                  | 87.49 ± 1.16%        | 70.00               | 22861001 |
+| uuid v4                          | 6610604 ± 0.01%            | 6666719                   | 170.46 ± 0.23%       | 150.00              | 11732806 |
+| uuid v7                          | 5458876 ± 0.02%            | 5848012                   | 262.02 ± 0.10%       | 171.00              | 7633042  |
 
 ## Conclusion
 
-- Generation of integer-based ids is ~70% faster than the generation of uuids.
-- Generator functions are ~20% slower than simpler solutions using classes.
-- The `randomUUID` function available in Node.js is ~120% faster than the `v4` function available in the `uuid` package.
+- Generating integer-based ids is ~60% faster than generating of uuids.
+- Generating integer-based ids using a class-based factory is ~20% faster than a generator function.
+- The `randomUUID` function available in Node.js is ~100% faster than the `v4` function available in the `uuid` package.
 - Generating uuid v4 is ~20% faster than generating uuid v7.

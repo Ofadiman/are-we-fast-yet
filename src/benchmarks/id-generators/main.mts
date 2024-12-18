@@ -1,29 +1,14 @@
 import { randomUUID } from "node:crypto";
 import { v4, v7 } from "uuid";
 import { benchmark } from "../../utils/benchmark.mjs";
-
-function* CreateIdGenerator() {
-  let current = 0;
-  while (true) {
-    current += 1;
-    yield current;
-  }
-}
-
-const createIdGenerator = CreateIdGenerator();
-
-class CreateIdClass {
-  current = 0;
-
-  next() {
-    this.current += 1;
-    return this.current;
-  }
-}
-
-const createIdClass = new CreateIdClass();
+import { idFactory } from "./idFactory.mjs";
+import { idGenerator } from "./idGenerator.mjs";
 
 benchmark({
+  options: {
+    // This benchmark must be run for less than the default 10 seconds. This is because V8 throws weird memory allocation errors (e.g. FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory).
+    time: 2_000,
+  },
   setup: (bench) => {
     bench
       .add(`randomUUID`, () => {
@@ -36,19 +21,19 @@ benchmark({
         v7();
       })
       .add(`integer-based generator function`, () => {
-        createIdGenerator.next();
+        idGenerator.next();
       })
       .add(`integer-based class`, () => {
-        createIdClass.next();
+        idFactory.next();
       });
   },
   filename: import.meta.filename,
   description:
-    "The goal of this benchmark is to check the performance of different methods for generating IDs in JavaScript.",
+    "The purpose of this benchmark is to investigate the performance of different methods for generating IDs.",
   conclusion: [
-    "Generation of integer-based ids is ~70% faster than the generation of uuids.",
-    "Generator functions are ~20% slower than simpler solutions using classes.",
-    "The `randomUUID` function available in Node.js is ~120% faster than the `v4` function available in the `uuid` package.",
+    "Generating integer-based ids is ~60% faster than generating of uuids.",
+    "Generating integer-based ids using a class-based factory is ~20% faster than a generator function.",
+    "The `randomUUID` function available in Node.js is ~100% faster than the `v4` function available in the `uuid` package.",
     "Generating uuid v4 is ~20% faster than generating uuid v7.",
   ],
 });

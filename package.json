@@ -4,6 +4,7 @@
   "author": "ofadiman",
   "license": "MIT",
   "scripts": {
+    "bench": "NODE_OPTIONS=--max-old-space-size=16384 && tsx",
     "check:typescript": "tsc --noEmit"
   },
   "dependencies": {
