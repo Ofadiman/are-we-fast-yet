@@ -1,6 +1,6 @@
 # Json Validation
 
-This benchmark is designed to test which data validation library is the fastest.
+The purpose of this benchmark is to investigate the performance of different data validation libraries.
 
 ## Hardware
 
@@ -21,12 +21,12 @@ This benchmark is designed to test which data validation library is the fastest.
 
 | Task name       | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples |
 | --------------- | -------------------------- | ------------------------- | -------------------- | ------------------- | ------- |
-| zod             | 159350 ± 0.05%             | 163639                    | 6559.12 ± 0.39%      | 6111.00             | 152460  |
-| superstruct     | 45715 ± 0.09%              | 46640                     | 22769.28 ± 0.43%     | 21441.00            | 43919   |
-| typebox         | 38092 ± 0.06%              | 38552                     | 26487.98 ± 0.20%     | 25939.00            | 37753   |
-| class validator | 22131 ± 0.11%              | 22536                     | 46105.01 ± 0.33%     | 44374.00            | 21690   |
-| yup             | 13155 ± 0.16%              | 13390                     | 77523.81 ± 0.38%     | 74682.00            | 12900   |
+| zod             | 161282 ± 0.01%             | 163345                    | 6371.82 ± 0.09%      | 6122.00             | 1569411 |
+| superstruct     | 46669 ± 0.03%              | 47461                     | 22269.60 ± 0.13%     | 21070.00            | 449043  |
+| typebox         | 36648 ± 0.02%              | 37118                     | 27563.74 ± 0.08%     | 26941.00            | 362796  |
+| class-validator | 21137 ± 0.05%              | 21889                     | 48971.65 ± 0.14%     | 45686.00            | 204201  |
+| yup             | 13709 ± 0.05%              | 14009                     | 74054.57 ± 0.10%     | 71385.00            | 135036  |
 
 ## Conclusion
 
-- Zod is the fastest at validating data. It beats other libraries by at least 350%.
+- `zod` is the fastest library when it comes to validating JavaScript objects. It beats the second fastest library, `superstruct`, by ~3.5 times.
