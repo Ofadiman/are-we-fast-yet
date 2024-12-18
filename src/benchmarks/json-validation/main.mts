@@ -1,7 +1,6 @@
 import "reflect-metadata";
 
 import * as s from "superstruct";
-import { Value } from "@sinclair/typebox/value";
 import { benchmark } from "../../utils/benchmark.mjs";
 import { plainToInstance } from "class-transformer";
 import { superstructSchema } from "./superstruct.mjs";
@@ -16,10 +15,13 @@ const user: any = userFactory();
 
 benchmark({
   options: {
-    time: 10_000,
+    time: 5000,
   },
   setup: (bench) => {
     bench
+      .add("typebox", () => {
+        typeboxSchema.Check(user);
+      })
       .add("zod", () => {
         zodSchema.parse(user);
       })
@@ -31,9 +33,6 @@ benchmark({
       })
       .add("class-validator", () => {
         validateSync(plainToInstance(User, user));
-      })
-      .add("typebox", () => {
-        Value.Parse(typeboxSchema, user);
       });
   },
   description:
