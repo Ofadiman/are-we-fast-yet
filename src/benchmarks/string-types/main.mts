@@ -1,6 +1,10 @@
 import { benchmark } from "../../utils/benchmark.mjs";
 
 benchmark({
+  options: {
+    // This benchmark must be run for less than the default 10 seconds. This is because V8 throws weird memory allocation errors (e.g. FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory).
+    time: 1_000,
+  },
   setup: (bench) => {
     bench
       .add("single quote", () => {
@@ -17,7 +21,7 @@ benchmark({
       });
   },
   description:
-    "This benchmark was designed to test which type of string is the fastest in JavaScript.",
+    "The purpose of this benchmark is to investigate which method of string declaration is the fastest while performing operations on strings.",
   conclusion: [
     "It seems that there are no significant differences between different string types in terms of performance.",
   ],

@@ -1,6 +1,6 @@
 # String Types
 
-This benchmark was designed to test which type of string is the fastest in JavaScript.
+The purpose of this benchmark is to investigate which method of string declaration is the fastest while performing operations on strings.
 
 ## Hardware
 
@@ -21,9 +21,9 @@ This benchmark was designed to test which type of string is the fastest in JavaS
 
 | Task name    | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
 | ------------ | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
-| double quote | 26705624 ± 0.01%           | 25000001                  | 38.50 ± 0.04%        | 40.00               | 25975467 |
-| backticks    | 26262184 ± 0.01%           | 25000001                  | 39.00 ± 0.04%        | 40.00               | 25641905 |
-| single quote | 25196977 ± 0.01%           | 25000000                  | 41.31 ± 0.05%        | 40.00               | 24206527 |
+| backticks    | 22121964 ± 0.01%           | 20002642                  | 56.79 ± 18.41%       | 49.99               | 17609779 |
+| double quote | 22109993 ± 0.01%           | 20002642                  | 51.49 ± 0.79%        | 49.99               | 19419578 |
+| single quote | 21697106 ± 0.01%           | 19999661                  | 50.12 ± 2.25%        | 50.00               | 19952777 |
 
 ## Conclusion
 
