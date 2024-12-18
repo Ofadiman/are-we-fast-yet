@@ -47,7 +47,7 @@ export const benchmark = async (args: {
       lodash.merge(
         {
           now: hrtimeNow,
-          time: 10_000,
+          time: 2_000,
         } satisfies Options,
         args.options,
       ),

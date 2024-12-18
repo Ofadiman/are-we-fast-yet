@@ -5,10 +5,6 @@ import { idFactory } from "./idFactory.mjs";
 import { idGenerator } from "./idGenerator.mjs";
 
 benchmark({
-  options: {
-    // This benchmark must be run for less than the default 10 seconds. This is because V8 throws weird memory allocation errors (e.g. FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory).
-    time: 2_000,
-  },
   setup: (bench) => {
     bench
       .add(`randomUUID`, () => {
