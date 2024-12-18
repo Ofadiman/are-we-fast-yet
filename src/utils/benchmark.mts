@@ -1,8 +1,8 @@
 import lodash from "lodash";
 import path from "node:path";
 import { Bench, Options, hrtimeNow } from "tinybench";
-import { createDocs } from "./createDocs.mjs";
-import { createRootDocs } from "./createRootDocs.mjs";
+import { createBenchmarkReadme } from "./createBenchmarkReadme.mjs";
+import { createRootReadme } from "./createRootReadme.mjs";
 import { formatDocs } from "./formatDocs.mjs";
 import { getEnvironment } from "./getEnvironment.mjs";
 import { getHardware } from "./getHardware.mjs";
@@ -28,7 +28,7 @@ export const benchmark = async (args: {
     const hardware = await getHardware();
     const environment = getEnvironment();
 
-    const docs = createDocs({
+    const docs = createBenchmarkReadme({
       conclusion: args.conclusion,
       description: args.description,
       environment,
@@ -41,7 +41,7 @@ export const benchmark = async (args: {
 
     saveDocs({ path: paths.docs, docs: formattedDocs });
 
-    createRootDocs();
+    createRootReadme();
   } else {
     const bench = new Bench(
       lodash.merge(

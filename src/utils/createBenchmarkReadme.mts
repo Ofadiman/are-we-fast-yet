@@ -5,7 +5,7 @@ import { getEnvironment } from "./getEnvironment.mjs";
 import { getMarkdownTable } from "./getMarkdownTable.mjs";
 import { readResults } from "./readResults.mjs";
 
-export const createDocs = (args: {
+export const createBenchmarkReadme = (args: {
   dirname: string;
   description: string;
   hardware: Awaited<ReturnType<typeof getHardware>>;

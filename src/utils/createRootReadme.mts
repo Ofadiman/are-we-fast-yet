@@ -5,7 +5,7 @@ import { glob } from "glob";
 import { readFileSync, writeFileSync } from "node:fs";
 import { unified } from "unified";
 
-export const createRootDocs = async () => {
+export const createRootReadme = async () => {
   const listItems = (await glob("src/**/*.md"))
     .toSorted((left, right) => left.localeCompare(right))
     .map((file) => {
