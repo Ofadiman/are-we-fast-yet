@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import path from "node:path";
-import { Bench, Options, hrtimeNow } from "tinybench";
+import { Bench, Options } from "tinybench";
 import { createBenchmarkReadme } from "./createBenchmarkReadme.mjs";
 import { createRootReadme } from "./createRootReadme.mjs";
 import { formatDocs } from "./formatDocs.mjs";
@@ -43,15 +43,7 @@ export const benchmark = async (args: {
 
     createRootReadme();
   } else {
-    const bench = new Bench(
-      lodash.merge(
-        {
-          now: hrtimeNow,
-          time: 2_000,
-        } satisfies Options,
-        args.options,
-      ),
-    );
+    const bench = new Bench(args.options);
 
     args.setup(bench);
 
