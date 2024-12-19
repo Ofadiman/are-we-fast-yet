@@ -19,14 +19,16 @@ The purpose of this benchmark is to investigate the performance of different dat
 
 ## Results
 
-| Task name       | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
-| --------------- | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
-| typebox         | 13183464 ± 0.00%           | 12500000                  | 77.02 ± 0.02%        | 80.00               | 64916213 |
-| zod             | 168861 ± 0.02%             | 171792                    | 6130.88 ± 0.14%      | 5821.00             | 815545   |
-| superstruct     | 46615 ± 0.04%              | 47553                     | 22336.34 ± 0.18%     | 21029.00            | 223851   |
-| class-validator | 21990 ± 0.06%              | 22510                     | 46841.39 ± 0.18%     | 44424.00            | 106744   |
-| yup             | 13897 ± 0.07%              | 14230                     | 73574.54 ± 0.18%     | 70273.00            | 67959    |
+| Task name          | Throughput average (ops/s) | Throughput median (ops/s) | Latency average (ns) | Latency median (ns) | Samples  |
+| ------------------ | -------------------------- | ------------------------- | -------------------- | ------------------- | -------- |
+| typebox (compiled) | 13043079 ± 0.00%           | 12500000                  | 78.57 ± 1.85%        | 80.00               | 63638680 |
+| zod                | 161446 ± 0.01%             | 163345                    | 6357.90 ± 0.12%      | 6122.00             | 786424   |
+| superstruct        | 46678 ± 0.04%              | 47621                     | 22176.65 ± 0.16%     | 20999.00            | 225463   |
+| typebox (parse)    | 38296 ± 0.02%              | 38671                     | 26309.44 ± 0.07%     | 25859.00            | 190046   |
+| class-validator    | 22384 ± 0.05%              | 22793                     | 45567.78 ± 0.14%     | 43873.00            | 109727   |
+| yup                | 14162 ± 0.06%              | 14442                     | 71587.69 ± 0.13%     | 69241.00            | 69845    |
 
 ## Conclusion
 
-- `zod` is the fastest library when it comes to validating JavaScript objects. It beats the second fastest library, `superstruct`, by ~3.5 times.
+- Compiled `typebox` schema is ~80 times faster than `zod`.
+- Raw `typebox` schema is ~340 times slower than compiled `typebox` schema.
