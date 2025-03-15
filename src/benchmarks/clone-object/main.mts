@@ -2,9 +2,9 @@ import lodash from "lodash";
 import * as ramda from "ramda";
 import { benchmark } from "../../utils/benchmark.mjs";
 import { userFactory } from "../../utils/userFactory.mjs";
-import { chatgpt as chatgptCloneDeep } from "./chatgptCloneDeep";
-import { claude as claudeCloneDeep } from "./claudeCloneDeep";
-import { fastJsonCloneDeep } from "./fastJsonCloneDeep";
+import { chatgpt as chatgptCloneDeep } from "./chatgptCloneDeep.mjs";
+import { claude as claudeCloneDeep } from "./claudeCloneDeep.mjs";
+import { fastJsonCloneDeep } from "./fastJsonCloneDeep.mjs";
 
 const user = userFactory();
 
