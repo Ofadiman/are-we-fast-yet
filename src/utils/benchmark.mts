@@ -1,6 +1,6 @@
 import lodash from "lodash";
 import path from "node:path";
-import { Bench, Options } from "tinybench";
+import { Bench, BenchOptions } from "tinybench";
 import { createBenchmarkReadme } from "./createBenchmarkReadme.mjs";
 import { createRootReadme } from "./createRootReadme.mjs";
 import { formatDocs } from "./formatDocs.mjs";
@@ -15,7 +15,7 @@ import { sortResults } from "./sortResults.mjs";
 
 export const benchmark = async (args: {
   setup: (bench: Bench) => void;
-  options?: Options;
+  options?: BenchOptions;
   description: string;
   conclusion: string[];
   filename: string;

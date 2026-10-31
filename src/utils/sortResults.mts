@@ -1,5 +1,5 @@
 export const sortResults = (args: {
-  results: (Record<string, string | number> | null | undefined)[];
+  results: (Record<string, string | number | undefined> | null)[];
 }) => {
   const clone = structuredClone(args.results);
 
@@ -9,12 +9,12 @@ export const sortResults = (args: {
     }
 
     const firstThroughput = parseInt(
-      (firstResult["Throughput average (ops/s)"] as string).split(
+      (firstResult["Throughput avg (ops/s)"] as string).split(
         " ± ",
       )[0] as string,
     );
     const secondThroughput = parseInt(
-      (secondResult["Throughput average (ops/s)"] as string).split(
+      (secondResult["Throughput avg (ops/s)"] as string).split(
         " ± ",
       )[0] as string,
     );
