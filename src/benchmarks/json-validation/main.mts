@@ -15,9 +15,6 @@ import { Value } from "@sinclair/typebox/value";
 const user: any = userFactory();
 
 benchmark({
-  options: {
-    time: 5_000,
-  },
   setup: (bench) => {
     bench
       .add("typebox (parse)", () => {
