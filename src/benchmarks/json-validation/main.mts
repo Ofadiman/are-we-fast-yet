@@ -1,11 +1,12 @@
 import "reflect-metadata";
 
 import * as s from "superstruct";
-import { benchmark } from "../../utils/benchmark.mjs";
+import os from "node:os";
+import { Bench } from "tinybench";
 import { plainToInstance } from "class-transformer";
 import { superstructSchema } from "./superstruct.mjs";
 import { compiledTypeboxSchema, typeboxSchema } from "./typebox.mjs";
-import { userFactory } from "../../utils/userFactory.mjs";
+import { userFactory } from "../../fixtures/userFactory.mjs";
 import { validateSync } from "class-validator";
 import { yupSchema } from "./yup.mjs";
 import { zodSchema } from "./zod.mjs";
@@ -14,33 +15,46 @@ import { Value } from "@sinclair/typebox/value";
 
 const user: any = userFactory();
 
-benchmark({
-  setup: (bench) => {
-    bench
-      .add("typebox (parse)", () => {
-        Value.Parse(typeboxSchema, user);
-      })
-      .add("typebox (compiled)", () => {
-        compiledTypeboxSchema.Check(user);
-      })
-      .add("zod", () => {
-        zodSchema.parse(user);
-      })
-      .add("superstruct", () => {
-        s.assert(user, superstructSchema);
-      })
-      .add("yup", () => {
-        yupSchema.validateSync(user);
-      })
-      .add("class-validator", () => {
-        validateSync(plainToInstance(User, user));
-      });
-  },
-  description:
-    "The purpose of this benchmark is to investigate the performance of different data validation libraries.",
-  conclusion: [
-    "Compiled `typebox` schema is ~80 times faster than `zod`.",
-    "Raw `typebox` schema is ~340 times slower than compiled `typebox` schema.",
-  ],
-  filename: import.meta.filename,
+const bench = new Bench({ name: "json-validation" });
+
+console.table({
+  cpu: os.cpus()[0]?.model,
+  cores: os.availableParallelism(),
+  memory: `${(os.totalmem() / 1024 ** 3).toFixed(2)} GiB`,
+  os: `${os.type()} ${os.release()} (${os.machine()})`,
+  runtime: `${bench.runtime}@${bench.runtimeVersion}`,
 });
+
+bench
+  .add("typebox (parse)", () => {
+    Value.Parse(typeboxSchema, user);
+  })
+  .add("typebox (compiled)", () => {
+    compiledTypeboxSchema.Check(user);
+  })
+  .add("zod", () => {
+    zodSchema.parse(user);
+  })
+  .add("superstruct", () => {
+    s.assert(user, superstructSchema);
+  })
+  .add("yup", () => {
+    yupSchema.validateSync(user);
+  })
+  .add("class-validator", () => {
+    validateSync(plainToInstance(User, user));
+  });
+
+await bench.run();
+
+const rows = bench.table();
+
+console.table(
+  bench.tasks
+    .map((task, index) => ({
+      row: rows[index],
+      throughput: "throughput" in task.result ? task.result.throughput.mean : 0,
+    }))
+    .toSorted((left, right) => right.throughput - left.throughput)
+    .map(({ row }) => row),
+);

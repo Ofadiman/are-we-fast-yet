@@ -1,6 +1,7 @@
-import { User, userFactory } from "../../utils/userFactory.mjs";
-import { benchmark } from "../../utils/benchmark.mjs";
+import { User, userFactory } from "../../fixtures/userFactory.mjs";
 import immutable from "immutable";
+import os from "node:os";
+import { Bench } from "tinybench";
 
 const record = {} as Record<string, User>;
 const map = new Map<string, User>();
@@ -33,34 +34,48 @@ for (let i = 0; i < COUNT; i++) {
   immutableRecord = immutableRecord.set(user.id, user);
 }
 
-benchmark({
-  setup: (bench) => {
-    bench
-      .add(`record`, () => {
-        record[firstElementId];
-        record[middleElementId];
-        record[lastElementId];
-      })
-      .add(`map`, () => {
-        map.get(firstElementId);
-        map.get(middleElementId);
-        map.get(lastElementId);
-      })
-      .add(`immutable record`, () => {
-        immutableRecord.get(firstElementId);
-        immutableRecord.get(middleElementId);
-        immutableRecord.get(lastElementId);
-      })
-      .add(`immutable map`, () => {
-        immutableMap.get(firstElementId);
-        immutableMap.get(middleElementId);
-        immutableMap.get(lastElementId);
-      });
-  },
-  filename: import.meta.filename,
-  description: `The purpose of this benchmark is to investigate which "hash map" implementation is the fastest when it comes to accessing semi-random elements.`,
-  conclusion: [
-    "`Record` data structure from [immutable.js]() library is the fastest in accessing semi-random elements.",
-    "Native `Map` is about 10% faster than `record (object literal)` in accessing a semi-random elements.",
-  ],
+const bench = new Bench({ name: "find-element-in" });
+
+console.table({
+  cpu: os.cpus()[0]?.model,
+  cores: os.availableParallelism(),
+  memory: `${(os.totalmem() / 1024 ** 3).toFixed(2)} GiB`,
+  os: `${os.type()} ${os.release()} (${os.machine()})`,
+  runtime: `${bench.runtime}@${bench.runtimeVersion}`,
 });
+
+bench
+  .add(`record`, () => {
+    record[firstElementId];
+    record[middleElementId];
+    record[lastElementId];
+  })
+  .add(`map`, () => {
+    map.get(firstElementId);
+    map.get(middleElementId);
+    map.get(lastElementId);
+  })
+  .add(`immutable record`, () => {
+    immutableRecord.get(firstElementId);
+    immutableRecord.get(middleElementId);
+    immutableRecord.get(lastElementId);
+  })
+  .add(`immutable map`, () => {
+    immutableMap.get(firstElementId);
+    immutableMap.get(middleElementId);
+    immutableMap.get(lastElementId);
+  });
+
+await bench.run();
+
+const rows = bench.table();
+
+console.table(
+  bench.tasks
+    .map((task, index) => ({
+      row: rows[index],
+      throughput: "throughput" in task.result ? task.result.throughput.mean : 0,
+    }))
+    .toSorted((left, right) => right.throughput - left.throughput)
+    .map(({ row }) => row),
+);
