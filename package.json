@@ -28,7 +28,6 @@
     "reflect-metadata": "^0.2.2",
     "remark-parse": "^11.0.0",
     "secure-json-parse": "^4.1.1",
-    "simple-git": "~4.0.2",
     "superstruct": "^2.0.2",
     "systeminformation": "^5.33.19",
     "tinybench": "^6.2.2",
