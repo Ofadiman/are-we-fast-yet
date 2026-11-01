@@ -1,5 +1,5 @@
-import { Type } from "@sinclair/typebox";
-import { TypeCompiler } from "@sinclair/typebox/compiler";
+import Type from "typebox";
+import { Compile } from "typebox/compile";
 
 enum EmploymentStatus {
   EMPLOYED = "employed",
@@ -47,6 +47,11 @@ export const typeboxSchema = Type.Object({
   website: Type.String(),
   avatar: Type.String(),
   bio: Type.String(),
+  socialMedia: Type.Object({
+    twitter: Type.String(),
+    linkedin: Type.String(),
+    facebook: Type.String(),
+  }),
   preferences: Type.Object({
     newsletter: Type.Boolean(),
     notifications: Type.Object({
@@ -75,4 +80,4 @@ export const typeboxSchema = Type.Object({
   ),
 });
 
-export const compiledTypeboxSchema = TypeCompiler.Compile(typeboxSchema);
+export const compiledTypeboxSchema = Compile(typeboxSchema);

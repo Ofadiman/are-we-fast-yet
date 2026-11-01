@@ -4,10 +4,10 @@ import immutable from "immutable";
 import { Bench } from "tinybench";
 import { runBenchmark } from "../../runBenchmark.mjs";
 
-const COUNT = 100;
+const USERS = 100;
 const LOOKUPS = 1_000;
 
-const users = Array.from({ length: COUNT }, () => userFactory());
+const users = Array.from({ length: USERS }, userFactory);
 
 const faker = new Faker({ locale: [en] });
 faker.seed(1);

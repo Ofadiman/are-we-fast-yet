@@ -1,12 +1,12 @@
 import { Type } from "class-transformer";
 import {
   IsString,
-  IsUUID,
   IsEnum,
   IsBoolean,
   ValidateNested,
   IsArray,
   IsNumber,
+  IsDefined,
 } from "class-validator";
 
 enum EmploymentStatus {
@@ -57,6 +57,7 @@ class Address {
   @IsString()
   zipCode: string;
 
+  @IsDefined()
   @ValidateNested()
   @Type(() => Location)
   location: Location;
@@ -71,6 +72,17 @@ class Company {
 
   @IsString()
   jobTitle: string;
+}
+
+class SocialMedia {
+  @IsString()
+  twitter: string;
+
+  @IsString()
+  linkedin: string;
+
+  @IsString()
+  facebook: string;
 }
 
 class Notifications {
@@ -88,6 +100,7 @@ class Preferences {
   @IsBoolean()
   newsletter: boolean;
 
+  @IsDefined()
   @ValidateNested()
   @Type(() => Notifications)
   notifications: Notifications;
@@ -122,6 +135,7 @@ export class User {
   @IsString()
   id: string;
 
+  @IsDefined()
   @ValidateNested()
   @Type(() => Name)
   name: Name;
@@ -141,10 +155,12 @@ export class User {
   @IsString()
   birthday: string;
 
+  @IsDefined()
   @ValidateNested()
   @Type(() => Address)
   address: Address;
 
+  @IsDefined()
   @ValidateNested()
   @Type(() => Company)
   company: Company;
@@ -158,6 +174,12 @@ export class User {
   @IsString()
   bio: string;
 
+  @IsDefined()
+  @ValidateNested()
+  @Type(() => SocialMedia)
+  socialMedia: SocialMedia;
+
+  @IsDefined()
   @ValidateNested()
   @Type(() => Preferences)
   preferences: Preferences;
@@ -174,6 +196,7 @@ export class User {
   @IsEnum(MembershipLevel)
   membershipLevel: MembershipLevel;
 
+  @IsDefined()
   @ValidateNested()
   @Type(() => CreditCard)
   creditCard: CreditCard;

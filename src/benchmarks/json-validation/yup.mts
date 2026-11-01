@@ -44,7 +44,7 @@ export const yupSchema = y
         facebook: y.string().required(),
       })
       .required(),
-    employmentStatus: y.mixed().oneOf(["employed", "unemployed"]).required(),
+    employmentStatus: y.string().oneOf(["employed", "unemployed"]).required(),
     preferences: y
       .object({
         newsletter: y.boolean().required(),
@@ -55,12 +55,12 @@ export const yupSchema = y
             push: y.boolean().required(),
           })
           .required(),
-        theme: y.mixed().oneOf(["light", "dark"]).required(),
+        theme: y.string().oneOf(["light", "dark"]).required(),
       })
       .required(),
     createdAt: y.string().required(),
     lastLoginAt: y.string().required(),
-    membershipLevel: y.mixed().oneOf(["basic", "premium", "gold"]).required(),
+    membershipLevel: y.string().oneOf(["basic", "premium", "gold"]).required(),
     creditCard: y
       .object({
         number: y.string().required(),
