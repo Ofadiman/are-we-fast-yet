@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { nanoid } from "nanoid";
 import { Bench } from "tinybench";
 import { v7 } from "uuid";
-import { runBenchmark } from "../../runBenchmark.mjs";
+import { run } from "../../run.mjs";
 
 function* createIdGenerator() {
   let current = 0;
@@ -88,4 +88,4 @@ bench
     return perId(start);
   });
 
-await runBenchmark(bench);
+await run(bench);

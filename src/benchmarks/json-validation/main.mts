@@ -6,8 +6,8 @@ import { plainToInstance } from "class-transformer";
 import * as v from "valibot";
 import { superstructSchema } from "./superstruct.mjs";
 import { compiledTypeboxSchema, typeboxSchema } from "./typebox.mjs";
-import { userFactory } from "../../fixtures/userFactory.mjs";
-import { runBenchmark } from "../../runBenchmark.mjs";
+import { user } from "../../fixtures/user.mjs";
+import { run } from "../../run.mjs";
 import { validateSync } from "class-validator";
 import { arktypeSchema } from "./arktype.mjs";
 import { valibotSchema } from "./valibot.mjs";
@@ -18,7 +18,7 @@ import Value from "typebox/value";
 
 const USERS = 100;
 
-const users = Array.from({ length: USERS }, userFactory);
+const users = Array.from({ length: USERS }, user);
 
 let result: unknown;
 
@@ -102,4 +102,4 @@ bench
     },
   );
 
-await runBenchmark(bench);
+await run(bench);

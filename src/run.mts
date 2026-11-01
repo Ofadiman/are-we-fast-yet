@@ -1,7 +1,7 @@
 import os from "node:os";
 import type { Bench } from "tinybench";
 
-export const runBenchmark = async (bench: Bench) => {
+export const run = async (bench: Bench) => {
   console.table({
     cpu: os.cpus()[0]?.model,
     cores: os.availableParallelism(),

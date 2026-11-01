@@ -3,7 +3,7 @@ import { Faker, en } from "@faker-js/faker";
 const faker = new Faker({ locale: [en] });
 faker.seed(1);
 
-export const userFactory = () => {
+export const user = () => {
   return {
     id: faker.string.uuid(),
     name: {
@@ -70,4 +70,4 @@ export const userFactory = () => {
   };
 };
 
-export type User = ReturnType<typeof userFactory>;
+export type User = ReturnType<typeof user>;

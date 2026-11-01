@@ -1,13 +1,13 @@
 import { Faker, en } from "@faker-js/faker";
-import { User, userFactory } from "../../fixtures/userFactory.mjs";
+import { User, user } from "../../fixtures/user.mjs";
 import immutable from "immutable";
 import { Bench } from "tinybench";
-import { runBenchmark } from "../../runBenchmark.mjs";
+import { run } from "../../run.mjs";
 
 const USERS = 100;
 const LOOKUPS = 1_000;
 
-const users = Array.from({ length: USERS }, userFactory);
+const users = Array.from({ length: USERS }, user);
 
 const faker = new Faker({ locale: [en] });
 faker.seed(1);
@@ -74,4 +74,4 @@ bench
     return perLookup(start);
   });
 
-await runBenchmark(bench);
+await run(bench);
