@@ -17,6 +17,7 @@
     "fast-copy": "^4.3.1",
     "immutable": "^5.1.9",
     "lodash": "^4.18.1",
+    "nanoid": "^6.0.2",
     "prettier": "^3.9.10",
     "ramda": "^0.32.0",
     "reflect-metadata": "^0.2.2",

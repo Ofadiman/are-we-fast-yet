@@ -38,6 +38,9 @@ importers:
       lodash:
         specifier: ^4.18.1
         version: 4.18.1
+      nanoid:
+        specifier: ^6.0.2
+        version: 6.0.2
       prettier:
         specifier: ^3.9.10
         version: 3.9.10
@@ -394,6 +397,11 @@ packages:
   lodash@4.18.1:
     resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
 
+  nanoid@6.0.2:
+    resolution: {integrity: sha512-hIvVOb9Qr1p/9CNNLOe0OlWvgx/ziTsVwKN/GDSsuArN2K0wDiafP3s0SWmsm7o2BdnyS8Z9Z64NFBUbn6ziBg==}
+    engines: {node: ^22 || ^24 || >=26}
+    hasBin: true
+
   prettier@3.9.10:
     resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
     engines: {node: '>=14'}
@@ -662,6 +670,8 @@ snapshots:
   libphonenumber-js@1.13.15: {}
 
   lodash@4.18.1: {}
+
+  nanoid@6.0.2: {}
 
   prettier@3.9.10: {}
 
