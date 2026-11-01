@@ -10,4 +10,3 @@ Are you curious if your code is fast enough? Do you wonder if one library is fas
 - [Find Element In](src/benchmarks/find-element-in) - The purpose of this benchmark is to investigate which "hash map" implementation is the fastest when it comes to accessing semi-random elements.
 - [Id Generators](src/benchmarks/id-generators) - The purpose of this benchmark is to investigate the performance of different methods for generating IDs.
 - [Json Validation](src/benchmarks/json-validation) - The purpose of this benchmark is to investigate the performance of different data validation libraries.
-- [String Types](src/benchmarks/string-types) - The purpose of this benchmark is to investigate which method of string declaration is the fastest while performing operations on strings.
