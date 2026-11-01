@@ -1,0 +1,56 @@
+name: benchmarks
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  clone-object:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v4.3.0
+        with:
+          version: 2026.9.2
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run clone-object benchmark
+        run: pnpm exec tsx src/benchmarks/clone-object/main.mts
+
+  find-element-in:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v4.3.0
+        with:
+          version: 2026.9.2
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run find-element-in benchmark
+        run: pnpm exec tsx src/benchmarks/find-element-in/main.mts
+
+  id-generators:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v4.3.0
+        with:
+          version: 2026.9.2
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run id-generators benchmark
+        run: pnpm exec tsx src/benchmarks/id-generators/main.mts
+
+  json-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v4.3.0
+        with:
+          version: 2026.9.2
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run json-validation benchmark
+        run: pnpm exec tsx src/benchmarks/json-validation/main.mts
